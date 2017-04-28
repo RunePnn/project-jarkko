@@ -17,7 +17,7 @@ public class Tankki {
 		this.infrapuna = new Infrapuna(SensorPort.S1);
 		this.infrapuna.start();
 		
-		this.tykki = new Tykki(MotorPort.D, MotorPort.B);
+		this.tykki = new Tykki(MotorPort.D, MotorPort.C);
 		this.tykki.start();
 	}
 	
@@ -25,31 +25,24 @@ public class Tankki {
 		int lukema;
 		while (!Button.ESCAPE.isDown()) {
 			
-			lukema = this.infrapuna.getLukema();
+			lukema = this.infrapuna.getKanava0();
 			
 			LCD.drawString(this.tykki.alusta.getPosition() + "            ", 0, 0);
 			LCD.drawInt(lukema, 0, 1);
 			
 			if (lukema == 1 || lukema == 2) {
 				this.tykki.pyoritaAlustaaSulavasti(lukema);
-				while (this.infrapuna.getLukema() == lukema) {
+				while (this.infrapuna.getKanava0() == lukema) {
 					LCD.drawString(this.tykki.alusta.getPosition() + "            ", 0, 0);
 				}
-				
-				this.tykki.alusta.stop();
-				this.tykki.alusta.rotateTo((int)this.tykki.alusta.getPosition());
-				this.tykki.alusta.stop();
-				
-				//this.tykki.lopetaAlustanPyoriminen();
-			}
-			
-			if (lukema == 3) {
-				this.tykki.ammuTykilla();
+
+				this.tykki.lopetaAlustanPyoriminen();
 			}
 			
 		}
 		this.infrapuna.lopeta();
 		this.tykki.lopeta();
+		
 	}
 	
 }

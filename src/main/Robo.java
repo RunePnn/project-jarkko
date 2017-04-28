@@ -1,20 +1,14 @@
 package main;
 
-import sensorit.IRTracker;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3IRSensor;
 import lejos.utility.Delay;
 
 
 public class Robo {
 	
 	public static void main(String[] args) {
-		IRTracker irAnturi = new IRTracker(new EV3IRSensor(SensorPort.S1));
-		irAnturi.start();
-		
-//		Tankki tankki = new Tankki();
-//		tankki.aloita();
+		Tankki tankki = new Tankki();
+		tankki.aloita();
 	}
 	
 	public static void genString(int x, int y, String string, int blink) {

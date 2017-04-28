@@ -52,7 +52,7 @@ public class Tykki extends Thread {
 	}
 	
 	public void pyoritaAlustaaSulavasti(int lukema) {
-		this.alusta.setSpeed(60);
+		this.alusta.setSpeed(50);
 		if (lukema == 1) {
 			this.alusta.rotateTo(-90, true);
 		} else {
@@ -70,6 +70,7 @@ public class Tykki extends Thread {
 	}
 	
 	public void lopeta() {
+		this.alusta.setSpeed(150);
 		this.alusta.rotateTo(0);
 		this.paalla = false;
 	}
