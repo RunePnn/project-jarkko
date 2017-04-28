@@ -6,6 +6,12 @@ import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3IRSensor;
 import lejos.utility.Delay;
 
+/**
+ * 
+ * @author teemue
+ *
+ */
+
 public class Tykki extends Thread {
 	
 	public EV3MediumRegulatedMotor alusta;
@@ -15,6 +21,11 @@ public class Tykki extends Thread {
 	
 	private boolean paalla;
 	
+	/**
+	 * 
+	 * @param porttiAlusta MotorPort pyorivaa alustaa varten
+	 * @param porttiTykki MotorPort ampuvaa tykkia varten
+	 */
 	public Tykki(Port porttiAlusta, Port porttiTykki) {
 		this.alusta = new EV3MediumRegulatedMotor(porttiAlusta);
 		this.alusta.setSpeed(50);
@@ -41,18 +52,17 @@ public class Tykki extends Thread {
 	}
 	
 	public void pyoritaAlustaaSulavasti(int lukema) {
+		this.alusta.setSpeed(50);
 		if (lukema == 1) {
-			this.alusta.rotateTo(-120, true);
+			this.alusta.rotateTo(-90, true);
 		} else {
-			this.alusta.rotateTo(120, true);
+			this.alusta.rotateTo(90, true);
 		}
 	}
 	
 	public void lopetaAlustanPyoriminen() {
+		this.alusta.setSpeed(0);
 		this.alusta.stop();
-		while (this.alusta.isMoving()) {
-			
-		}
 	}
 	
 	public void ammuTykilla() {
@@ -60,6 +70,7 @@ public class Tykki extends Thread {
 	}
 	
 	public void lopeta() {
+		this.alusta.rotateTo(0);
 		this.paalla = false;
 	}
 
