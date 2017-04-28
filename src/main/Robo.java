@@ -1,6 +1,6 @@
 package main;
 
-import sensorit.IRTracker;
+import sensorit.BeaconTracker;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
@@ -10,7 +10,7 @@ import lejos.utility.Delay;
 public class Robo {
 	
 	public static void main(String[] args) {
-		IRTracker irAnturi = new IRTracker(new EV3IRSensor(SensorPort.S1));
+		BeaconTracker irAnturi = new BeaconTracker(new EV3IRSensor(SensorPort.S1));
 		irAnturi.start();
 		
 //		Tankki tankki = new Tankki();
