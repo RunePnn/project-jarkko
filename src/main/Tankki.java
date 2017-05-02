@@ -22,21 +22,19 @@ public class Tankki {
 	}
 	
 	public void aloita() {
-		int lukema;
+		int kanava0, kanava1;
 		while (!Button.ESCAPE.isDown()) {
 			
-			lukema = this.infrapuna.getKanava0();
-			
-			LCD.drawString(this.tykki.alusta.getPosition() + "            ", 0, 0);
-			LCD.drawInt(lukema, 0, 1);
-			
-			if (lukema == 1 || lukema == 2) {
-				this.tykki.pyoritaAlustaaSulavasti(lukema);
-				while (this.infrapuna.getKanava0() == lukema) {
-					LCD.drawString(this.tykki.alusta.getPosition() + "            ", 0, 0);
-				}
+			kanava0 = this.infrapuna.getKanava0();
+			kanava1 = this.infrapuna.getKanava1();
 
+			if (kanava0 == 1 || kanava0 == 2) {
+				this.tykki.pyoritaAlustaaSulavasti(kanava0);
+				while (this.infrapuna.getKanava0() == kanava0) {
+				}
 				this.tykki.lopetaAlustanPyoriminen();
+			} else if (kanava0 == 3) {
+				this.tykki.ammuTykilla();
 			}
 			
 		}
