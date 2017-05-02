@@ -51,11 +51,11 @@ public class Tykki extends Thread {
 		}
 	}
 	
-	public void pyoritaAlustaaSulavasti(int lukema) {
-		this.alusta.setSpeed(50);
-		if (lukema == 1) {
+	public void pyoritaAlustaaSulavasti(int suunta) {
+		this.alusta.setSpeed(75);
+		if (suunta == 0) {
 			this.alusta.rotateTo(-90, true);
-		} else {
+		} else if (suunta == 1) {
 			this.alusta.rotateTo(90, true);
 		}
 	}

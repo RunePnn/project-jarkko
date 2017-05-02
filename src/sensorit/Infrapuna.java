@@ -20,7 +20,7 @@ public class Infrapuna extends Thread {
 	public void run() {
 		while (this.paalla) {
 			this.kanava0 = this.infrapuna.getRemoteCommand(0);
-			this.kanava1 = this.infrapuna.getRemoteCommand(1);
+			//this.kanava1 = this.infrapuna.getRemoteCommand(1);
 		}
 	}
 	
