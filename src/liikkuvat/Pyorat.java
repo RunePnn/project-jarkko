@@ -15,13 +15,26 @@ public class Pyorat {
 	public Pyorat (Port kaannosPort, Port paaPort){
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
+		kaannosMoottori.setSpeed(20);
 	}
 	
 	public void eteen(int nopeus){
-		this.paaMoottori.setSpeed(nopeus);
-		this.paaMoottori.forward();
+		this.paaMoottori.setSpeed(100);
+		this.paaMoottori.backward();
+//		this.paaMoottori.forward();
+	}
+	public void kaannos(int kaannosKulma) {
+		kaannosKulma =  0;
 		
+		this.kaannosMoottori.rotateTo(kaannosKulma);
 		
 	}
+		
+
+		
+		
+	
+
+	
 }
 
