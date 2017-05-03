@@ -35,12 +35,8 @@ public class Tankki {
 				while (this.infrapuna.getLukema() == lukema) {
 					LCD.drawString(this.tykki.alusta.getPosition() + "            ", 0, 0);
 				}
-				
-				this.tykki.alusta.stop();
-				this.tykki.alusta.rotateTo((int)this.tykki.alusta.getPosition());
-				this.tykki.alusta.stop();
-				
-				//this.tykki.lopetaAlustanPyoriminen();
+	
+				this.tykki.lopetaAlustanPyoriminen();
 			}
 			
 			if (lukema == 3) {

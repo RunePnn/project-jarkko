@@ -8,17 +8,21 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.utility.Delay;
 import liikkuvat.Tykki;
 
-public class IRTracker extends Thread {
+public class BeaconTracker extends Thread {
 	private EV3IRSensor sensor;
 	private float direction;
 	private Tykki tykki;
 	
-	public IRTracker(EV3IRSensor sensor) {
+	private boolean paalla;
+	
+	public BeaconTracker(EV3IRSensor sensor) {
 		this.sensor = sensor;
 		this.direction = 0;
 		
 		this.tykki = new Tykki(MotorPort.D, MotorPort.B);
 		this.tykki.start();
+		
+		this.paalla = true;
 	}
 	
 	public void run() {
@@ -40,6 +44,10 @@ public class IRTracker extends Thread {
 				this.tykki.lopetaAlustanPyoriminen();
 			}
 		}
+	}
+	
+	public void lopeta() {
 		this.tykki.lopeta();
+		this.paalla = false;
 	}
 }
