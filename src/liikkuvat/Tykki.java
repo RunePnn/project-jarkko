@@ -18,6 +18,7 @@ public class Tykki extends Thread {
 	private EV3LargeRegulatedMotor tykki;
 	
 	private int rotaatio;
+	private int alustanNopeus;
 	
 	private boolean paalla;
 	
@@ -34,6 +35,7 @@ public class Tykki extends Thread {
 		this.tykki.setSpeed(800);
 		
 		this.rotaatio = 0;
+		this.alustanNopeus = 75;
 		
 		this.paalla = true;
 	}
@@ -52,7 +54,7 @@ public class Tykki extends Thread {
 	}
 	
 	public void pyoritaAlustaaSulavasti(int suunta) {
-		this.alusta.setSpeed(75);
+		this.alusta.setSpeed(this.alustanNopeus);
 		if (suunta == 0) {
 			this.alusta.rotateTo(-90, true);
 		} else if (suunta == 1) {
@@ -67,6 +69,10 @@ public class Tykki extends Thread {
 	
 	public void ammuTykilla() {
 		this.tykki.rotate(360);
+	}
+	
+	public void asetaAlustanNopeus(int nopeus) {
+		this.alustanNopeus = nopeus;
 	}
 	
 	public void lopeta() {
