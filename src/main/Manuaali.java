@@ -5,103 +5,157 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
-import liikkuvat.Pyorat;
 import liikkuvat.Tykki;
+import liikkuvat.Pyorat;
 import sensorit.Infrapuna;
 
 public class Manuaali {
 	
 	private Tykki tykki;
-	private Infrapuna infrapuna;
 	private Pyorat pyorat;
-
+	private Infrapuna infrapuna;
+	private int komentoNyk;
+	private int komentoEd;
+	
 	public Manuaali() {
-		this.infrapuna = new Infrapuna(SensorPort.S1);
+		this.infrapuna = new Infrapuna(SensorPort.S4);
 		this.infrapuna.start();
 		
 		this.tykki = new Tykki(MotorPort.D, MotorPort.C);
 		this.tykki.start();
 		
 		this.pyorat = new Pyorat(MotorPort.A, MotorPort.B);
+		
+		this.komentoNyk = -1;
+		this.komentoEd = -1;
 	}
 	
 	public void aloita() {
-		int kanava0;
-
-		while (!Button.ESCAPE.isDown()) {
+		boolean luettu = false;
+		while (!Button.ENTER.isDown()) {
 			
-			kanava0 = this.infrapuna.getKanava0();
+			this.komentoNyk = this.infrapuna.getKanava0();
 			
-			if (kanava0 == 1 || kanava0 == 2 || kanava0 == 10 || kanava0 == 11) {
-				
-				switch(kanava0) {
-				case 1:
-					// aja eteen
-					break;
-				case 2:
-					// aja taakse
-					break;
-				case 10:
-					// kaanny vasemmalle
-					this.tykki.pyoritaAlustaaSulavasti(0);
-					break;
-				case 11:
-					// kaanny oikealle
-					this.tykki.pyoritaAlustaaSulavasti(1);
-					break;
+			if (this.komentoNyk != this.komentoEd) {
+				switch(this.komentoNyk) {
+					case 1:
+						// aja eteen
+						this.pyorat.eteen();
+						break;
+					case 2:
+						// aja taakse
+						this.pyorat.taakse();
+						break;
+					case 3:
+						// kaanna tykki vasemmalle
+						this.tykki.pyoritaAlustaaSulavasti(0);
+						break;
+					case 4:
+						// kaanna tykki oikealle
+						this.tykki.pyoritaAlustaaSulavasti(1);
+						break;
+					case 5:
+						// aja eteen vasemmalle
+						this.pyorat.eteen();
+						this.pyorat.kaanny(0);
+						break;
+					case 6:
+						// aja eteen oikealle
+						this.pyorat.eteen();
+						this.pyorat.kaanny(1);
+						break;
+					case 7:
+						// aja taakse vasemmalle
+						this.pyorat.taakse();
+						this.pyorat.kaanny(0);
+						break;
+					case 8:
+						// aja taakse oikealle
+						this.pyorat.taakse();
+						this.pyorat.kaanny(1);
+						break;
 				}
+				//Talletetaan edellinen komento ja merkitään komento luetuksi
 				
-				// silmukassa kunnes nappia ei enaa paineta
-				while (infrapuna.getKanava0() == kanava0) {}
-				
-				if (kanava0 == 1 || kanava0 == 2) {
-					// this.pyorat.pysayta();
-				} else if (kanava0 == 10 || kanava0 == 11) {
+				//Viime komento ei ollut tykin käännöskomento
+				if ((this.komentoEd == 3 || this.komentoEd == 4)
+						&& !(this.komentoNyk == 3 || this.komentoNyk == 4)) {
 					this.tykki.lopetaAlustanPyoriminen();
+					
+				} else if ((this.komentoEd == 1 || this.komentoEd == 2 || this.komentoEd == 5 || this.komentoEd == 6
+						|| this.komentoEd == 7 || this.komentoEd == 8) 
+						&& !(this.komentoNyk == 1 || this.komentoNyk == 2
+							|| this.komentoNyk == 5 || this.komentoNyk == 6
+							|| this.komentoNyk == 7 || this.komentoNyk == 8)) {
+					this.pyorat.pysayta();
+					this.pyorat.suorista();
 				}
 				
-			}
-			else if (kanava0 == 5) {
-				this.tykki.ammuTykilla();
-			}
-			
-
-			/*
-			switch(kanava0) {
-			case 1:
-				//pyorat.eteen(-100);
-				break;
-			case 2:
-				// aja taakse
-				break;
-			case 3:
-				// kaanny vasemmalle
-				break;
-			case 4:
-				// kaanny oikealle
-				break;
-			case 10:
-				this.tykki.pyoritaAlustaaSulavasti(0);
-				while (infrapuna.getKanava0() == kanava0) {}
-				this.tykki.lopetaAlustanPyoriminen();
-				break;
-			case 11:
-				this.tykki.pyoritaAlustaaSulavasti(1);
-				while (infrapuna.getKanava0() == kanava0) {}
-				this.tykki.lopetaAlustanPyoriminen();
-				break;
-			case 5:
-				this.tykki.ammuTykilla();
-				break;
+				this.komentoEd = this.komentoNyk;
+				
 			}
 			
-			*/
-			
+//			if (komentoNyk != 11) {
+//				
+//				switch(komentoNyk) {
+//				case 1:
+//					// aja eteen
+//					this.pyorat.eteen();
+//					break;
+//				case 2:
+//					// aja taakse
+//					this.pyorat.taakse();
+//					break;
+//				case 3:
+//					// kaanna tykki vasemmalle
+//					this.tykki.pyoritaAlustaaSulavasti(0);
+//					break;
+//				case 4:
+//					// kaanna tykki oikealle
+//					this.tykki.pyoritaAlustaaSulavasti(1);
+//					break;
+//				case 5:
+//					// aja eteen vasemmalle
+//					this.pyorat.eteen();
+//					this.pyorat.kaanny(0);
+//					break;
+//				case 6:
+//					// aja eteen oikealle
+//					this.pyorat.eteen();
+//					this.pyorat.kaanny(1);
+//					break;
+//				case 7:
+//					// aja taakse vasemmalle
+//					this.pyorat.taakse();
+//					this.pyorat.kaanny(0);
+//					break;
+//				case 8:
+//					// aja taakse oikealle
+//					this.pyorat.taakse();
+//					this.pyorat.kaanny(1);
+//					break;
+//				}
+//				
+//				// silmukassa kunnes nappia ei enaa paineta
+//				while (infrapuna.getKanava0() == komentoNyk && komentoNyk != 0) {}
+//				
+//				if (komentoNyk != 3 && komentoNyk != 4) {
+//					this.pyorat.pysayta();
+//					this.pyorat.suorista();
+//				} else {
+//					this.tykki.lopetaAlustanPyoriminen();
+//				}
+//				
+//			}
+//			else if (komentoNyk == 11) {
+//				this.tykki.ammuTykilla();
+//			}
 		}
 		
 		Delay.msDelay(1000);
 		this.infrapuna.lopeta();
 		this.tykki.lopeta();
+		
 	}
 	
 }

@@ -10,44 +10,54 @@ public class Pyorat {
 	
 	/**
 	 * Luokka, joka ohjaa robotin ajamiseen kayttamia moottoreita.
-	 * @param kaannosPort
-	 * @param paaPort
+	 * @param kaannosPort Kaannosmoottorin porttiasema
+	 * @param paaPort Paamoottorin porttiasema
 	 */
 
 	public Pyorat (Port kaannosPort, Port paaPort){
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
+		
+		this.kaannosMoottori.setSpeed(100);
+		this.paaMoottori.setSpeed(600);
 	}
 	
 	/**
 	 * Laittaa robotin ajamaan eteenpain asetetulla nopeudella.
-	 * @param nopeus Ajonopeus
 	 */
-	public void eteen(int nopeus){
-		this.paaMoottori.setSpeed(nopeus);
-		this.paaMoottori.forward();	
+	public void eteen(){
+//		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.backward();	
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan taaksepain asetetulla nopeudella.
+	 * Laittaa robotin ajamaan taaksep�in asetetulla nopeudella.
 	 * @param nopeus Ajonopeus
 	 */
-	public void taakse (int nopeus) {
-		this.paaMoottori.setSpeed(nopeus);
-		this.paaMoottori.backward();
+	public void taakse () {
+//		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.forward();
+	}
+	
+	/**
+	 * Pysayttaa molemmat moottorit.
+	 */
+	public void pysayta() {
+		this.paaMoottori.stop();
+		this.kaannosMoottori.stop();
 	}
   
 	/**
-	 * Metodi kaantaa robotin eturenkaat annettuun kulmaan. Jos kulma on suurempi kuin raja-arvo 30,
-	 * kaannetaan pyorat vain raja-arvoon asti.
-	 * @param kulma
+	 * Metodi kaantaa robotin eturenkaat annettuun suuntaan.
+	 * Pyoria kaannetaan vain raja-arvoon 30 asti.
+	 * @param suunta Kaannossuunta. 0 = vasen, 1 = oikea.
 	 */
-	public void kaanny(int kulma) {
-		int rajaKulma = 30;
-		if (Math.abs(kulma) <= rajaKulma) {
-			this.kaannosMoottori.rotateTo(kulma);
-		} else {
-			this.kaannosMoottori.rotateTo(rajaKulma);
+	public void kaanny(int suunta) {
+		int rajakulma = 30;
+		if (suunta == 0) {
+			this.kaannosMoottori.rotateTo(rajakulma);
+		} else if (suunta == 1) {
+			this.kaannosMoottori.rotateTo(-rajakulma);
 		}
 	}
 	
@@ -55,7 +65,18 @@ public class Pyorat {
 	 * Metodi kaantaa robotin eturenkaat suoraan ajoon.
 	 */
 	public void suorista() {
-		kaanny(0);
+		this.kaannosMoottori.rotateTo(0);
 
+	}
+	
+	/**
+	 * Jos jokin ajomoottori on kaynnissa palautetaan true.
+	 * @return True, jos robotin ajomoottorit liikkuvat.
+	 */
+	public boolean liikkuu() {
+		if (this.kaannosMoottori.isMoving() || this.paaMoottori.isMoving()) {
+			return true;
+		}
+		return false;
 	}
 }

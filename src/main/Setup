@@ -27,7 +27,7 @@ public class Setup {
 			BeaconTracker irAnturi = new BeaconTracker(new EV3IRSensor(SensorPort.S1));
 			irAnturi.start();
 		} else if (keycode == Button.ID_RIGHT) {
-			Manuaali tankki = new Manuaali();
+			Tankki tankki = new Tankki();
 			tankki.aloita();
 		}
 	}
