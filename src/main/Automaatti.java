@@ -45,9 +45,9 @@ public class Automaatti {
 				this.tykki.pyoritaAlustaaSulavasti(1); // Oikealle
 				Button.LEDPattern(3);
 			} else if (this.suunta == 0 && this.kantama == Float.POSITIVE_INFINITY) {
-				if (this.tykki.alusta.getPosition() > 60) {
+				if (this.tykki.getPosition() > 60) {
 					this.etsintaSuunta = 1;
-				} else if (this.tykki.alusta.getPosition() < -60) {
+				} else if (this.tykki.getPosition() < -60) {
 					this.etsintaSuunta = 0;
 				}
 				this.tykki.pyoritaAlustaaSulavasti(this.etsintaSuunta);
