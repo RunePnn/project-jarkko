@@ -2,9 +2,8 @@ package main;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3IRSensor;
-import sensorit.BeaconTracker;
+//import lejos.hardware.port.SensorPort;
+//import lejos.hardware.sensor.EV3IRSensor;
 
 public class Setup {
 	
@@ -24,10 +23,10 @@ public class Setup {
 		LCD.clear();
 		
 		if (keycode == Button.ID_LEFT) {
-			BeaconTracker irAnturi = new BeaconTracker(new EV3IRSensor(SensorPort.S1));
-			irAnturi.start();
+			Automaatti irAnturi = new Automaatti();
+			irAnturi.aloita();
 		} else if (keycode == Button.ID_RIGHT) {
-			Tankki tankki = new Tankki();
+			Manuaali tankki = new Manuaali();
 			tankki.aloita();
 		}
 	}

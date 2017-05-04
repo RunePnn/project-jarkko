@@ -9,7 +9,7 @@ public class Pyorat {
 	private EV3LargeRegulatedMotor  paaMoottori;
 	
 	/**
-	 * Luokka, joka ohjaa robotin ajamiseen k�ytt�mi� moottoreita.
+	 * Luokka, joka ohjaa robotin ajamiseen kayttamia moottoreita.
 	 * @param kaannosPort
 	 * @param paaPort
 	 */
@@ -20,7 +20,7 @@ public class Pyorat {
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan eteenp�in asetetulla nopeudella.
+	 * Laittaa robotin ajamaan eteenpain asetetulla nopeudella.
 	 * @param nopeus Ajonopeus
 	 */
 	public void eteen(int nopeus){
@@ -29,7 +29,7 @@ public class Pyorat {
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan taaksep�in asetetulla nopeudella.
+	 * Laittaa robotin ajamaan taaksepain asetetulla nopeudella.
 	 * @param nopeus Ajonopeus
 	 */
 	public void taakse (int nopeus) {
@@ -38,8 +38,8 @@ public class Pyorat {
 	}
   
 	/**
-	 * Metodi k��nt�� robotin eturenkaat annettuun kulmaan. Jos kulma on suurempi kuin raja-arvo 30,
-	 * k��nnet��n py�r�t vain raja-arvoon asti.
+	 * Metodi kaantaa robotin eturenkaat annettuun kulmaan. Jos kulma on suurempi kuin raja-arvo 30,
+	 * kaannetaan pyorat vain raja-arvoon asti.
 	 * @param kulma
 	 */
 	public void kaanny(int kulma) {
@@ -52,7 +52,7 @@ public class Pyorat {
 	}
 	
 	/**
-	 * Metodi k��nt�� robotin eturenkaat suoraan ajoon.
+	 * Metodi kaantaa robotin eturenkaat suoraan ajoon.
 	 */
 	public void suorista() {
 		kaanny(0);
