@@ -18,7 +18,7 @@ public class Pyorat {
 		kaannosMoottori.setSpeed(20);
 	}
 	
-	public void eteen(int nopeus){
+	public void eteen(int nopeus){  //while pressing eteen button
 		this.paaMoottori.setSpeed(100);
 		this.paaMoottori.backward();
 //		this.paaMoottori.forward();
@@ -29,9 +29,11 @@ public class Pyorat {
 		this.kaannosMoottori.rotateTo(kaannosKulma);
 		
 	}
-		
-
-		
+	public void taakse(int nopeus){  //while pressing taakse button
+		this.paaMoottori.setSpeed(100);
+		this.paaMoottori.forward();
+	} 
+		//while button is pressed 
 		
 	
 
