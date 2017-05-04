@@ -4,7 +4,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
 
-public class Pyorat {
+public class PyoratM {
 	private EV3MediumRegulatedMotor kaannosMoottori;
 	private EV3LargeRegulatedMotor  paaMoottori;
 	
@@ -14,11 +14,11 @@ public class Pyorat {
 	 * @param paaPort Paamoottorin porttiasema
 	 */
 
-	public Pyorat (Port kaannosPort, Port paaPort){
+	public PyoratM (Port kaannosPort, Port paaPort){
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
 		
-		this.kaannosMoottori.setSpeed(100);
+		this.kaannosMoottori.setSpeed(50);
 		this.paaMoottori.setSpeed(600);
 	}
 	
@@ -27,15 +27,17 @@ public class Pyorat {
 	 */
 	public void eteen(){
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.setSpeed(600);
 		this.paaMoottori.backward();	
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan taaksep�in asetetulla nopeudella.
+	 * Laittaa robotin ajamaan taaksepain asetetulla nopeudella.
 	 * @param nopeus Ajonopeus
 	 */
 	public void taakse () {
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.setSpeed(400);
 		this.paaMoottori.forward();
 	}
 	
