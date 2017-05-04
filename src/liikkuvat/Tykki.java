@@ -1,5 +1,6 @@
 package liikkuvat;
 
+import lejos.hardware.Button;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
@@ -29,13 +30,13 @@ public class Tykki extends Thread {
 	 */
 	public Tykki(Port porttiAlusta, Port porttiTykki) {
 		this.alusta = new EV3MediumRegulatedMotor(porttiAlusta);
-		this.alusta.setSpeed(50);
+		this.alustanNopeus = 50;
+		this.alusta.setSpeed(alustanNopeus);
 		
 		this.tykki = new EV3LargeRegulatedMotor(porttiTykki);
 		this.tykki.setSpeed(800);
 		
 		this.rotaatio = 0;
-		this.alustanNopeus = 75;
 		
 		this.paalla = true;
 	}
@@ -53,11 +54,11 @@ public class Tykki extends Thread {
 		}
 	}
 	
-	public void pyoritaAlustaaSulavasti(int suunta) {
+	public void pyoritaAlustaaSulavasti(int lukema) {
 		this.alusta.setSpeed(this.alustanNopeus);
-		if (suunta == 0) {
+		if (lukema == 1) {
 			this.alusta.rotateTo(-90, true);
-		} else if (suunta == 1) {
+		} else {
 			this.alusta.rotateTo(90, true);
 		}
 	}
@@ -75,11 +76,14 @@ public class Tykki extends Thread {
 		this.alustanNopeus = nopeus;
 	}
 	
+	public float getPosition() {
+		return this.alusta.getPosition();
+	}
+	
 	public void lopeta() {
-		this.alusta.setSpeed(150);
+		this.alusta.setSpeed(this.alustanNopeus);
 		this.alusta.rotateTo(0);
 		this.paalla = false;
 	}
 
 }
-
