@@ -17,7 +17,7 @@ public class Automaatti {
 	private int etsintaSuunta;
 	
 	public Automaatti() {
-		this.infrapuna = new BeaconTracker(SensorPort.S1);
+		this.infrapuna = new BeaconTracker(SensorPort.S4);
 		this.suunta = 0;
 		this.kantama = 0;
 		
@@ -45,16 +45,19 @@ public class Automaatti {
 				this.tykki.pyoritaAlustaaSulavasti(1); // Oikealle
 				Button.LEDPattern(3);
 			} else if (this.suunta == 0 && this.kantama == Float.POSITIVE_INFINITY) {
-				if (this.tykki.alusta.getPosition() > 60) {
+				if (this.tykki.getPosition() > 60) {
 					this.etsintaSuunta = 1;
-				} else if (this.tykki.alusta.getPosition() < -60) {
+				} else if (this.tykki.getPosition() < -60) {
 					this.etsintaSuunta = 0;
 				}
 				this.tykki.pyoritaAlustaaSulavasti(this.etsintaSuunta);
 				Button.LEDPattern(0);
+			} else if (this.kantama < 50){
+				this.tykki.lopetaAlustanPyoriminen();
+				this.tykki.ammuTykilla();
+				Button.LEDPattern(1);
 			} else {
 				this.tykki.lopetaAlustanPyoriminen();
-				Button.LEDPattern(1);
 			}
 		}
 		this.tykki.lopeta();

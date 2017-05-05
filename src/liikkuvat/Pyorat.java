@@ -18,8 +18,8 @@ public class Pyorat {
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
 		
-		this.kaannosMoottori.setSpeed(100);
-		this.paaMoottori.setSpeed(600);
+		this.kaannosMoottori.setSpeed(80);
+		this.paaMoottori.setSpeed(300);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class Pyorat {
 	 * @param suunta Kaannossuunta. 0 = vasen, 1 = oikea.
 	 */
 	public void kaanny(int suunta) {
-		int rajakulma = 30;
+		int rajakulma = 45;
 		if (suunta == 0) {
 			this.kaannosMoottori.rotateTo(rajakulma);
 		} else if (suunta == 1) {

@@ -48,11 +48,11 @@ public class Manuaali {
 						break;
 					case 3:
 						// kaanna tykki vasemmalle
-						this.tykki.pyoritaAlustaaSulavasti(0);
+						this.tykki.pyoritaAlustaaSulavasti(1);
 						break;
 					case 4:
 						// kaanna tykki oikealle
-						this.tykki.pyoritaAlustaaSulavasti(1);
+						this.tykki.pyoritaAlustaaSulavasti(0);
 						break;
 					case 5:
 						// aja eteen vasemmalle
@@ -90,10 +90,14 @@ public class Manuaali {
 					this.pyorat.pysayta();
 					this.pyorat.suorista();
 				}
-				
-				this.komentoEd = this.komentoNyk;
-				
 			}
+			
+			if ((this.komentoNyk == 9 && this.komentoEd == 0) || (this.komentoEd == 9 && this.komentoNyk != 9)) {
+				this.tykki.ammuTykilla();
+			}
+			
+			this.komentoEd = this.komentoNyk;
+			
 			
 //			if (komentoNyk != 11) {
 //				
