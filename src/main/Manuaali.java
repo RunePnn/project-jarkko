@@ -41,10 +41,12 @@ public class Manuaali {
 					case 1:
 						// aja eteen
 						this.pyorat.eteen();
+						this.pyorat.suorista();
 						break;
 					case 2:
 						// aja taakse
 						this.pyorat.taakse();
+						this.pyorat.suorista();
 						break;
 					case 3:
 						// kaanna tykki vasemmalle
@@ -75,9 +77,9 @@ public class Manuaali {
 						this.pyorat.kaanny(1);
 						break;
 				}
-				//Talletetaan edellinen komento ja merkit‰‰n komento luetuksi
+				//Talletetaan edellinen komento ja merkit√§√§n komento luetuksi
 				
-				//Viime komento ei ollut tykin k‰‰nnˆskomento
+				//Viime komento ei ollut tykin k√§√§nn√∂skomento
 				if ((this.komentoEd == 3 || this.komentoEd == 4)
 						&& !(this.komentoNyk == 3 || this.komentoNyk == 4)) {
 					this.tykki.lopetaAlustanPyoriminen();
@@ -88,7 +90,6 @@ public class Manuaali {
 							|| this.komentoNyk == 5 || this.komentoNyk == 6
 							|| this.komentoNyk == 7 || this.komentoNyk == 8)) {
 					this.pyorat.pysayta();
-					this.pyorat.suorista();
 				}
 				
 				this.komentoEd = this.komentoNyk;
