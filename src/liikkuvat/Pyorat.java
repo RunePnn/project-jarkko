@@ -18,7 +18,7 @@ public class PyoratM {
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
 		
-		this.kaannosMoottori.setSpeed(50);
+		this.kaannosMoottori.setSpeed(100);
 		this.paaMoottori.setSpeed(600);
 	}
 	
@@ -67,6 +67,7 @@ public class PyoratM {
 	 */
 	public void pysayta() {
 		this.paaMoottori.stop();
+		this.kaannosMoottori.rotateTo(0, true);
 		this.kaannosMoottori.stop();
 	}
   
@@ -76,11 +77,11 @@ public class PyoratM {
 	 * @param suunta Kaannossuunta. 0 = vasen, 1 = oikea.
 	 */
 	public void kaanny(int suunta) {
-		int rajakulma = 40;
+		int rajakulma = 50;
 		if (suunta == 0) {
-			this.kaannosMoottori.rotateTo(rajakulma);
+			this.kaannosMoottori.rotateTo(rajakulma, true);
 		} else if (suunta == 1) {
-			this.kaannosMoottori.rotateTo(-rajakulma);
+			this.kaannosMoottori.rotateTo(-rajakulma, true);
 		}
 	}
 	
@@ -88,7 +89,7 @@ public class PyoratM {
 	 * Metodi kaantaa robotin eturenkaat suoraan ajoon.
 	 */
 	public void suorista() {
-		this.kaannosMoottori.rotateTo(0);
+		this.kaannosMoottori.rotateTo(0, true);
 
 	}
 	
