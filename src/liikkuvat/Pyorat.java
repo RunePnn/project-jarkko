@@ -4,7 +4,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
 
-public class PyoratM {
+public class Pyorat {
 	private EV3MediumRegulatedMotor kaannosMoottori;
 	private EV3LargeRegulatedMotor  paaMoottori;
 	
@@ -14,7 +14,7 @@ public class PyoratM {
 	 * @param paaPort Paamoottorin porttiasema
 	 */
 
-	public PyoratM (Port kaannosPort, Port paaPort){
+	public Pyorat (Port kaannosPort, Port paaPort){
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
 		
