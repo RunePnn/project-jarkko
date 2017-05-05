@@ -23,7 +23,7 @@ public class PyoratM {
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan eteenpain asetetulla nopeudella.
+	 * Laittaa robotin ajamaan eteenpain.
 	 */
 	public void eteen(){
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
@@ -32,12 +32,33 @@ public class PyoratM {
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan taaksepain asetetulla nopeudella.
+	 * Laittaa robotin ajamaan eteenpain asetetulla nopeudella.
 	 * @param nopeus Ajonopeus
+	 */
+	
+	public void eteen(int nopeus){
+//		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.setSpeed(nopeus);
+		this.paaMoottori.backward();	
+	}
+	
+	/**
+	 * Laittaa robotin ajamaan taaksepain.
 	 */
 	public void taakse () {
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
 		this.paaMoottori.setSpeed(400);
+		this.paaMoottori.forward();
+	}
+	
+	/**
+	 * Laittaa robotin ajamaan taaksepain asetetulla nopeudella.
+	 * @param nopeus Ajonopeus
+	 */
+	
+	public void taakse (int nopeus) {
+//		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.setSpeed(nopeus);
 		this.paaMoottori.forward();
 	}
 	
