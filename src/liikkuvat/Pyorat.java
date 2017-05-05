@@ -76,7 +76,7 @@ public class PyoratM {
 	 * @param suunta Kaannossuunta. 0 = vasen, 1 = oikea.
 	 */
 	public void kaanny(int suunta) {
-		int rajakulma = 30;
+		int rajakulma = 40;
 		if (suunta == 0) {
 			this.kaannosMoottori.rotateTo(rajakulma);
 		} else if (suunta == 1) {
