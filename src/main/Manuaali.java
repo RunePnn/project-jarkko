@@ -41,20 +41,18 @@ public class Manuaali {
 					case 1:
 						// aja eteen
 						this.pyorat.eteen();
-						this.pyorat.suorista();
 						break;
 					case 2:
 						// aja taakse
 						this.pyorat.taakse();
-						this.pyorat.suorista();
 						break;
 					case 3:
 						// kaanna tykki vasemmalle
-						this.tykki.pyoritaAlustaaSulavasti(0);
+						this.tykki.pyoritaAlustaaSulavasti(1);
 						break;
 					case 4:
 						// kaanna tykki oikealle
-						this.tykki.pyoritaAlustaaSulavasti(1);
+						this.tykki.pyoritaAlustaaSulavasti(0);
 						break;
 					case 5:
 						// aja eteen vasemmalle
@@ -77,9 +75,9 @@ public class Manuaali {
 						this.pyorat.kaanny(1);
 						break;
 				}
-				//Talletetaan edellinen komento ja merkit√§√§n komento luetuksi
+				//Talletetaan edellinen komento ja merkit‰‰n komento luetuksi
 				
-				//Viime komento ei ollut tykin k√§√§nn√∂skomento
+				//Viime komento ei ollut tykin k‰‰nnˆskomento
 				if ((this.komentoEd == 3 || this.komentoEd == 4)
 						&& !(this.komentoNyk == 3 || this.komentoNyk == 4)) {
 					this.tykki.lopetaAlustanPyoriminen();
@@ -90,11 +88,16 @@ public class Manuaali {
 							|| this.komentoNyk == 5 || this.komentoNyk == 6
 							|| this.komentoNyk == 7 || this.komentoNyk == 8)) {
 					this.pyorat.pysayta();
+					this.pyorat.suorista();
 				}
-				
-				this.komentoEd = this.komentoNyk;
-				
 			}
+			
+			if ((this.komentoNyk == 9 && this.komentoEd == 0) || (this.komentoEd == 9 && this.komentoNyk != 9)) {
+				this.tykki.ammuTykilla();
+			}
+			
+			this.komentoEd = this.komentoNyk;
+			
 			
 //			if (komentoNyk != 11) {
 //				

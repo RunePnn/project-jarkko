@@ -18,47 +18,24 @@ public class Pyorat {
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
 		
-		this.kaannosMoottori.setSpeed(100);
-		this.paaMoottori.setSpeed(600);
-	}
-	
-	/**
-	 * Laittaa robotin ajamaan eteenpain.
-	 */
-	public void eteen(){
-//		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
-		this.paaMoottori.setSpeed(600);
-		this.paaMoottori.backward();	
+		this.kaannosMoottori.setSpeed(80);
+		this.paaMoottori.setSpeed(300);
 	}
 	
 	/**
 	 * Laittaa robotin ajamaan eteenpain asetetulla nopeudella.
-	 * @param nopeus Ajonopeus
 	 */
-	
-	public void eteen(int nopeus){
+	public void eteen(){
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
-		this.paaMoottori.setSpeed(nopeus);
 		this.paaMoottori.backward();	
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan taaksepain.
+	 * Laittaa robotin ajamaan taaksep�in asetetulla nopeudella.
+	 * @param nopeus Ajonopeus
 	 */
 	public void taakse () {
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
-		this.paaMoottori.setSpeed(400);
-		this.paaMoottori.forward();
-	}
-	
-	/**
-	 * Laittaa robotin ajamaan taaksepain asetetulla nopeudella.
-	 * @param nopeus Ajonopeus
-	 */
-	
-	public void taakse (int nopeus) {
-//		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
-		this.paaMoottori.setSpeed(nopeus);
 		this.paaMoottori.forward();
 	}
 	
@@ -67,7 +44,6 @@ public class Pyorat {
 	 */
 	public void pysayta() {
 		this.paaMoottori.stop();
-		this.kaannosMoottori.rotateTo(0, true);
 		this.kaannosMoottori.stop();
 	}
   
@@ -77,11 +53,11 @@ public class Pyorat {
 	 * @param suunta Kaannossuunta. 0 = vasen, 1 = oikea.
 	 */
 	public void kaanny(int suunta) {
-		int rajakulma = 50;
+		int rajakulma = 45;
 		if (suunta == 0) {
-			this.kaannosMoottori.rotateTo(rajakulma, true);
+			this.kaannosMoottori.rotateTo(rajakulma);
 		} else if (suunta == 1) {
-			this.kaannosMoottori.rotateTo(-rajakulma, true);
+			this.kaannosMoottori.rotateTo(-rajakulma);
 		}
 	}
 	
@@ -89,7 +65,7 @@ public class Pyorat {
 	 * Metodi kaantaa robotin eturenkaat suoraan ajoon.
 	 */
 	public void suorista() {
-		this.kaannosMoottori.rotateTo(0, true);
+		this.kaannosMoottori.rotateTo(0);
 
 	}
 	
