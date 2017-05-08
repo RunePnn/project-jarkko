@@ -103,6 +103,13 @@ public class Tykki extends Thread {
 	}
 	
 	/**
+	 * Metodi tykin alustan sijainnin saamiseksi
+	 */
+	public float haeSijainti() {
+		return this.tykki.getPosition();
+	}
+	
+	/**
 	   * Metodi, joka kääntää tykin alkuperäiseen asentoon
 	   * ja lopettaa säikeen.
 	   * @return Ei mitään
