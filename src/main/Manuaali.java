@@ -8,6 +8,12 @@ import liikkuvat.Tykki;
 import liikkuvat.Pyorat;
 import sensorit.Infrapuna;
 
+
+/**
+ * Manuaali luokka ohjaa robotin renkaita ja tykkia kaukosaatimen signaalin perusteella.
+ * 
+ * @author Rune
+ */
 public class Manuaali {
 	
 	private Tykki tykki;
@@ -16,6 +22,9 @@ public class Manuaali {
 	private int komentoNyk;
 	private int komentoEd;
 	
+	/**
+	 * Luo uuden Manuaali olion.
+	 */
 	public Manuaali() {
 		this.infrapuna = new Infrapuna(SensorPort.S4);
 		this.infrapuna.start();
@@ -24,13 +33,14 @@ public class Manuaali {
 		this.tykki.start();
 		
 		this.pyorat = new Pyorat(MotorPort.A, MotorPort.B);
+		this.pyorat.start();
 		
 		this.komentoNyk = -1;
 		this.komentoEd = -1;
 	}
 	
 	/**
-	 * 
+	 * Kaynnistaa manuaalitilan, jossa robottia ohjataan kaukosaatimen komennoilla.
 	 */
 	public void aloita() {
 		while (!Button.ENTER.isDown()) {
@@ -45,11 +55,12 @@ public class Manuaali {
 			this.komentoEd = this.komentoNyk;
 		}
 		
-		Delay.msDelay(1000);
-		this.infrapuna.lopeta();
-		this.tykki.lopeta();
-		this.pyorat.terminate();
+		lopeta();
 	}
+	
+	/**
+	 * Antaa robotille ohjaustoiminnon riippuen kaukosaatimelta vastaaanotetusta signaalista.
+	 */
 	
 	private void ohjaa() {
 		switch(this.komentoNyk) {
@@ -96,6 +107,10 @@ public class Manuaali {
 		}
 	}
 	
+	
+	/**
+	 * Suoristaa renkaat tai tykin, kun niita ei enaa ohjata.
+	 */
 	private void suorista() {
 		if ((this.komentoEd == 3 || this.komentoEd == 4)
 				&& !(this.komentoNyk == 3 || this.komentoNyk == 4)) {
@@ -108,5 +123,15 @@ public class Manuaali {
 					|| this.komentoNyk == 7 || this.komentoNyk == 8)) {
 			this.pyorat.pysayta();
 		}
+	}
+	
+	/**
+	 * Lopettaa ohjelman kayttamat saikeet.
+	 */
+	private void lopeta() {
+		Delay.msDelay(1000);
+		this.infrapuna.lopeta();
+		this.tykki.lopeta();
+		this.pyorat.terminate();
 	}
 }
