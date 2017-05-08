@@ -4,6 +4,7 @@ import lejos.hardware.Button;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
+import lejos.utility.Delay;
 
 /**
  * Ampuva tykki, jota voi pyörittää alustalla.
@@ -106,6 +107,10 @@ public class Tykki {
 		Button.LEDPattern(2);
 		this.alusta.setSpeed(this.alustanNopeus);
 		this.alusta.rotateTo(0);
+		
+		Delay.msDelay(1000);
+		this.alusta.close();
+		this.tykki.close();
 	}
 
 }
