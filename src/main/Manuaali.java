@@ -17,6 +17,12 @@ public class Manuaali {
 	private int komentoNyk;
 	private int komentoEd;
 	
+	/**
+	 * Luokka, joka hoitaa manuaaliohjauksen
+	 * @author ???
+	 *
+	 */
+	
 	public Manuaali() {
 		this.infrapuna = new Infrapuna(SensorPort.S4);
 		this.infrapuna.start();
@@ -29,6 +35,11 @@ public class Manuaali {
 		this.komentoNyk = -1;
 		this.komentoEd = -1;
 	}
+	
+	/**
+	 * Funktio, joka aloittaa manuaaliohjauksen
+	 * kunnes ohjelma suljetaan
+	 */
 	
 	public void aloita() {
 		boolean luettu = false;
