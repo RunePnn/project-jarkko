@@ -4,6 +4,11 @@ import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3IRSensor;
 import lejos.hardware.sensor.SensorMode;
 
+/**
+ * Luokka, joka vastaanottaa beaconin sijainnin ja kantaman.
+ * @author viljamha
+ */
+
 public class BeaconTracker extends Thread {
 	private EV3IRSensor sensor;
 	private float seekSample[];
