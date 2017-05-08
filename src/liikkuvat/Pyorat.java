@@ -139,4 +139,13 @@ public class Pyorat extends Thread {
 	public boolean isRunning() {
 		return this.running;
 	}
+	
+	/**
+	* Pysayttaa moottorit, suoristaa kaannosmoottorin ja sulkee lopuksi molemmat moottorit.
+	*/
+	public void lopeta() {
+		pysayta();
+		this.kaannosMoottori.close();
+		this.paaMoottori.close();
+	}
 }
