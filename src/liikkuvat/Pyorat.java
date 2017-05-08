@@ -11,7 +11,7 @@ public class Pyorat extends Thread {
 	
 	/**
 	 * Luokka, joka ohjaa robotin ajamiseen kayttamia moottoreita.
-	 * @author Robertka
+	 * @author robertka
 	 * @param kaannosPort Kaannosmoottorin porttiasema
 	 * @param paaPort Paamoottorin porttiasema
 	 */
