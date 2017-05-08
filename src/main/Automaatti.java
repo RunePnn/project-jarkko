@@ -15,8 +15,13 @@ public class Automaatti {
 	private Pyorat pyorat;
 	private float suunta;
 	private float kantama;
-	
 	private int etsintaSuunta;
+	
+	/**
+	 * Luokka, joka hoitaa automaattiohjauksen
+	 * @author viljamha
+	 *
+	 */
 	
 	public Automaatti() {
 		this.infrapuna = new BeaconTracker(SensorPort.S1);
@@ -31,6 +36,11 @@ public class Automaatti {
 		this.etsintaSuunta = 0;
 		
 	}
+	
+	/**
+	 * Funktio, joka aloittaa automaattiohjauksen
+	 * kunnes ohjelma suljetaan
+	 */
 	
 	public void aloita() {
 		while(!Button.ENTER.isDown()) {
