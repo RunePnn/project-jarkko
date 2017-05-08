@@ -8,6 +8,12 @@ import liikkuvat.Pyorat;
 import liikkuvat.Tykki;
 import sensorit.BeaconTracker;
 
+/**
+ * Luokka, joka hoitaa robotin automaattiohjauksen
+ * @author viljamha
+ *
+ */
+
 public class Automaatti {
 	
 	private Tykki tykki;
@@ -21,8 +27,7 @@ public class Automaatti {
 	private int etsintaSuunta;
 	
 	/**
-	 * Luokka, joka hoitaa automaattiohjauksen
-	 * @author viljamha
+	 * Automaattiohjauksen konstruktori
 	 *
 	 */
 	
