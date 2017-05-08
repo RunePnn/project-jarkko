@@ -3,15 +3,16 @@ package liikkuvat;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
-
+/**
+ * @luokka, joka hoitaa liikkeet eteen ja taakse sekä käännökset
+ * @author robertka
+ **/
 public class Pyorat extends Thread {
 	private EV3MediumRegulatedMotor kaannosMoottori;
 	private EV3LargeRegulatedMotor  paaMoottori;
 	private boolean running;
 	
 	/**
-	 * Luokka, joka ohjaa robotin ajamiseen kayttamia moottoreita.
-	 * @author robertka
 	 * @param kaannosPort Kaannosmoottorin porttiasema
 	 * @param paaPort Paamoottorin porttiasema
 	 */
