@@ -38,16 +38,6 @@ public class Tykki extends Thread {
 		this.paalla = true;
 	}
 	
-	/**
-	 * Tykin run-metodi.
-	 * @return Ei mitään
-	 */
-	public void run() {
-		while (this.paalla) {
-			
-		}
-	}
-	
 	 /**
 	   * Metodi tykin alustan pyörittämiseen. Tykki voi kääntyä
 	   * kuitenkin maksimissaan vain 180 astetta kumpaankin suuntaan
