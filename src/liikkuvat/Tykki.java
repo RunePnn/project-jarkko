@@ -6,6 +6,7 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
 
 /**
+ * Ampuva tykki, jota voi pyörittää alustalla.
  * @author Teemu Eerola
  * @since 2017-05-08
  */
