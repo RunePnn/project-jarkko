@@ -36,7 +36,6 @@ public class Automaatti {
 		this.infrapuna.start();
 		
 		this.tykki = new Tykki(MotorPort.D, MotorPort.C);
-		this.tykki.start();
 		
 		this.pyorat = new Pyorat(MotorPort.A, MotorPort.B);
 		
