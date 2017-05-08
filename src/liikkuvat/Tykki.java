@@ -1,5 +1,6 @@
 package liikkuvat;
 
+import lejos.hardware.Button;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
@@ -15,17 +16,19 @@ public class Tykki extends Thread {
 	private EV3LargeRegulatedMotor tykki;
 	
 	private int rotaatio;
+	private int alustanNopeus;
 	
 	private boolean paalla;
 	
 	/**
 	 * Tykin konstruktori.
-	 * @param porttiAlusta MotorPort pyorivaa alustaa varten
-	 * @param porttiTykki MotorPort ampuvaa tykkia varten
+	 * @param porttiAlusta MotorPort pyorivää alustaa varten
+	 * @param porttiTykki MotorPort ampuvaa tykkiä varten
 	 */
 	public Tykki(Port porttiAlusta, Port porttiTykki) {
 		this.alusta = new EV3MediumRegulatedMotor(porttiAlusta);
-		this.alusta.setSpeed(50);
+		this.alustanNopeus = 50;
+		this.alusta.setSpeed(this.alustanNopeus);
 		
 		this.tykki = new EV3LargeRegulatedMotor(porttiTykki);
 		this.tykki.setSpeed(800);
@@ -66,7 +69,7 @@ public class Tykki extends Thread {
 	   * @return Ei mitään
 	   */
 	public void pyoritaAlustaaSulavasti(int suunta) {
-		this.alusta.setSpeed(75);
+		this.alusta.setSpeed(this.alustanNopeus);
 		if (suunta == 0) {
 			this.alusta.rotateTo(-90, true);
 		} else if (suunta == 1) {
@@ -91,12 +94,21 @@ public class Tykki extends Thread {
 	}
 	
 	/**
+	 * Metodi tykin alustan nopeuden muuttamiseksi
+	 * @param nopeus haluttu alustan nopeus
+	 */
+	public void asetaAlustanNopeus(int nopeus) {
+		this.alustanNopeus = nopeus;
+	}
+	
+	/**
 	   * Metodi, joka kääntää tykin alkuperäiseen asentoon
 	   * ja lopettaa säikeen.
 	   * @return Ei mitään
 	   */
 	public void lopeta() {
-		this.alusta.setSpeed(150);
+		Button.LEDPattern(2);
+		this.alusta.setSpeed(this.alustanNopeus);
 		this.alusta.rotateTo(0);
 		this.paalla = false;
 	}
