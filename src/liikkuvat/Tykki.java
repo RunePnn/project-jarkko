@@ -35,8 +35,21 @@ public class Tykki extends Thread {
 		
 		this.rotaatio = 0;
 		
-		this.paalla = true;
+		//this.paalla = true;
 	}
+	
+	/*
+	
+	/**
+	 * Tykin run-metodi.
+	 * @return Ei mitään
+	 */
+	public void run() {
+		while (this.paalla) {
+			
+		}
+	}
+	*/
 	
 	 /**
 	   * Metodi tykin alustan pyörittämiseen. Tykki voi kääntyä
@@ -108,7 +121,7 @@ public class Tykki extends Thread {
 		Button.LEDPattern(2);
 		this.alusta.setSpeed(this.alustanNopeus);
 		this.alusta.rotateTo(0);
-		this.paalla = false;
+		//this.paalla = false;
 	}
 
 }
