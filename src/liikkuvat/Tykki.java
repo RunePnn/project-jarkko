@@ -11,15 +11,13 @@ import lejos.hardware.port.Port;
  * @since 2017-05-08
  */
 
-public class Tykki extends Thread {
+public class Tykki {
 	
 	public EV3MediumRegulatedMotor alusta;
 	private EV3LargeRegulatedMotor tykki;
 	
 	private int rotaatio;
 	private int alustanNopeus;
-	
-	private boolean paalla;
 	
 	/**
 	 * @param porttiAlusta MotorPort pyorivää alustaa varten
@@ -36,16 +34,6 @@ public class Tykki extends Thread {
 		this.rotaatio = 0;
 		
 		this.paalla = true;
-	}
-	
-	/**
-	 * Tykin run-metodi (turha).
-	 * @return Ei mitään
-	 */
-	public void run() {
-		while (this.paalla) {
-			
-		}
 	}
 	
 	 /**
@@ -118,7 +106,6 @@ public class Tykki extends Thread {
 		Button.LEDPattern(2);
 		this.alusta.setSpeed(this.alustanNopeus);
 		this.alusta.rotateTo(0);
-		this.paalla = false;
 	}
 
 }
