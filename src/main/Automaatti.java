@@ -104,9 +104,9 @@ public class Automaatti {
 		} else if (suunta == 0 && kantama == Float.POSITIVE_INFINITY) { // jos kohdetta ei loydy...
 			Button.LEDPattern(0);
 			this.tykki.asetaAlustanNopeus(50);
-			if (this.tykki.getPosition() > 60) { // ...niin kaanna tykkia etsien uutta kohdetta
+			if (this.tykki.haeSijainti() > 60) { // ...niin kaanna tykkia etsien uutta kohdetta
 				this.etsintaSuunta = 1;
-			} else if (this.tykki.getPosition() < -60) {
+			} else if (this.tykki.haeSijainti() < -60) {
 				this.etsintaSuunta = 0;
 			}
 			this.tykki.pyoritaAlustaaSulavasti(this.etsintaSuunta);
@@ -135,7 +135,7 @@ public class Automaatti {
 		} else if (kantama > 60) {  // jos riittavan kaukana, niin ala liikkumaan
 			this.pyorat.eteen(600);
 		} else if (!(suunta == 0 && kantama == Float.POSITIVE_INFINITY)) { // jos kohde on loytynyt
-			int temp = (int) (this.tykki.getPosition() + (suunta * 2));
+			int temp = (int) (this.tykki.haeSijainti() + (suunta * 2));
 			if (temp > 50) {
 				temp = 50;
 			}
