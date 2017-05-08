@@ -18,7 +18,6 @@ public class Infrapuna extends Thread {
 	private boolean paalla;
 	
 	/**
-	 * Infrapuna konstruktori.
 	 * @param portti Sensoriportti infrapunasensoria varten.
 	 */
 	public Infrapuna(Port portti) {
