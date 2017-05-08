@@ -104,6 +104,7 @@ public class Tykki extends Thread {
 	
 	/**
 	 * Metodi tykin alustan sijainnin saamiseksi
+	 * @return float sijainti
 	 */
 	public float haeSijainti() {
 		return this.tykki.getPosition();
