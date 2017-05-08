@@ -4,13 +4,16 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
+import lejos.utility.Delay;
 import liikkuvat.Tykki;
+import liikkuvat.Pyorat;
 import sensorit.BeaconTracker;
 
 public class Automaatti {
 	
 	private Tykki tykki;
 	private BeaconTracker infrapuna;
+	private Pyorat pyorat;
 	private float suunta;
 	private float kantama;
 	
@@ -18,11 +21,14 @@ public class Automaatti {
 	
 	public Automaatti() {
 		this.infrapuna = new BeaconTracker(SensorPort.S4);
+		this.infrapuna.start();
 		this.suunta = 0;
 		this.kantama = 0;
 		
 		this.tykki = new Tykki(MotorPort.D, MotorPort.C);
 		this.tykki.start();
+		
+		this.pyorat = new Pyorat(MotorPort.A, MotorPort.B);
 		
 		this.etsintaSuunta = 0;
 		
@@ -32,34 +38,72 @@ public class Automaatti {
 		while(!Button.ENTER.isDown()) {
 			float seekSample[] = this.infrapuna.getSample();
 			
+			int alustanNopeus = 50;
+			
 			this.suunta = seekSample[0];
 			this.kantama = seekSample[1];
 			
 			LCD.drawString(this.suunta + "            ", 0, 1);
 			LCD.drawString(this.kantama + "            ", 0, 0);
 			
+//			this.alustanNopeus = (int) (5 * Math.abs(this.suunta));
+//			if (this.alustanNopeus > 50) {
+//				this.alustanNopeus = 50;
+//			}
+			
 			if (this.suunta > 2) {
+				this.tykki.asetaAlustanNopeus(alustanNopeus);
 				this.tykki.pyoritaAlustaaSulavasti(0); // Vasemmalle
 				Button.LEDPattern(3);
 			} else if (this.suunta < -2) {
+				this.tykki.asetaAlustanNopeus(alustanNopeus);
+				this.tykki.pyoritaAlustaaSulavasti(1); // Oikealle
+				Button.LEDPattern(3);
+			} else if (this.suunta > 0) {
+				this.tykki.asetaAlustanNopeus(2);
+				this.tykki.pyoritaAlustaaSulavasti(0); // Oikealle
+				Button.LEDPattern(3);
+			} else if (this.suunta < 0) {
+				this.tykki.asetaAlustanNopeus(2);
 				this.tykki.pyoritaAlustaaSulavasti(1); // Oikealle
 				Button.LEDPattern(3);
 			} else if (this.suunta == 0 && this.kantama == Float.POSITIVE_INFINITY) {
+				Button.LEDPattern(0);
+				this.tykki.asetaAlustanNopeus(50);
 				if (this.tykki.getPosition() > 60) {
 					this.etsintaSuunta = 1;
 				} else if (this.tykki.getPosition() < -60) {
 					this.etsintaSuunta = 0;
 				}
 				this.tykki.pyoritaAlustaaSulavasti(this.etsintaSuunta);
-				Button.LEDPattern(0);
-			} else if (this.kantama < 50){
-				this.tykki.lopetaAlustanPyoriminen();
-				this.tykki.ammuTykilla();
-				Button.LEDPattern(1);
+				this.pyorat.eteen(300);
 			} else {
+				Button.LEDPattern(1);
 				this.tykki.lopetaAlustanPyoriminen();
+				if (this.kantama < 30) {
+					this.tykki.ammuTykilla();
+				}
+			}
+			
+			if (this.kantama < 30) {
+				this.pyorat.pysayta();
+			} else if (!(this.suunta == 0 && this.kantama == Float.POSITIVE_INFINITY)) {
+				this.pyorat.eteen(600);
+				int temp = (int) (this.tykki.getPosition() + (this.suunta * 2));
+				if (temp > 50) {
+					temp = 50;
+				}
+				this.pyorat.kaanny(1, temp);
+			} else {
+				this.pyorat.eteen(600);
+				this.pyorat.suorista();
 			}
 		}
+		
+		Delay.msDelay(1000);
+		this.pyorat.pysayta();
+		this.pyorat.terminate();
 		this.tykki.lopeta();
+		this.infrapuna.terminate();
 	}
 }

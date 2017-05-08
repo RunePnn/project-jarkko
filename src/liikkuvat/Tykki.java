@@ -1,11 +1,8 @@
 package liikkuvat;
 
-import lejos.hardware.Button;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
-import lejos.hardware.sensor.EV3IRSensor;
-import lejos.utility.Delay;
 
 /**
  * 
@@ -45,6 +42,9 @@ public class Tykki extends Thread {
 		while (this.paalla) {
 			
 		}
+		
+		this.alusta.close();
+		this.tykki.close();
 	}
 	
 	public void pyoritaAlustaa(int asteet) {
@@ -53,6 +53,12 @@ public class Tykki extends Thread {
 			this.alusta.rotate(asteet);
 		}
 	}
+	
+	/**
+	 * Pyorittaa tykin alustaa annettuun suuntaan, kunnes on kaannytty 90 astetta tai toinen
+	 * komento pysayttaa kaannoksen.
+	 * @param lukema
+	 */
 	
 	public void pyoritaAlustaaSulavasti(int lukema) {
 		this.alusta.setSpeed(this.alustanNopeus);

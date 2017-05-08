@@ -4,9 +4,10 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.Port;
 
-public class Pyorat {
+public class Pyorat extends Thread {
 	private EV3MediumRegulatedMotor kaannosMoottori;
 	private EV3LargeRegulatedMotor  paaMoottori;
+	private boolean running;
 	
 	/**
 	 * Luokka, joka ohjaa robotin ajamiseen kayttamia moottoreita.
@@ -18,46 +19,84 @@ public class Pyorat {
 		this.kaannosMoottori = new EV3MediumRegulatedMotor(kaannosPort);
 		this.paaMoottori = new EV3LargeRegulatedMotor(paaPort);
 		
-		this.kaannosMoottori.setSpeed(80);
-		this.paaMoottori.setSpeed(300);
+		this.kaannosMoottori.setSpeed(100);
+		this.paaMoottori.setSpeed(600);
+		
+		this.running = true;
+	}
+	
+	@Override
+	public void run() {
+		while(isRunning()) {
+			
+		}
+		this.kaannosMoottori.close();
+		this.paaMoottori.close();
+	}
+	
+	public void terminate() {
+		this.running = false;
 	}
 	
 	/**
 	 * Laittaa robotin ajamaan eteenpain asetetulla nopeudella.
+	 * Oletus nopeus on 600.
+	 * @param nopeus Ajonopeus asteina sekunnissa.
 	 */
+	
 	public void eteen(){
+		eteen(600);	
+	}
+	
+	public void eteen(int nopeus){
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
-		this.paaMoottori.backward();	
+		this.paaMoottori.setSpeed(nopeus);
+		this.paaMoottori.backward();
+		suorista();
 	}
 	
 	/**
-	 * Laittaa robotin ajamaan taaksepï¿½in asetetulla nopeudella.
-	 * @param nopeus Ajonopeus
+	 * Laittaa robotin ajamaan taaksenpain asetetulla nopeudella.
+	 * Oletus nopeus on 400.
+	 * @param nopeus Ajonopeus asteina sekunnissa.
 	 */
+	
 	public void taakse () {
+		taakse(400);
+	}
+	
+	public void taakse (int nopeus) {
 //		Moottorin ajosuunta on oletetulle suunnalle vastakkainen.
+		this.paaMoottori.setSpeed(nopeus);
 		this.paaMoottori.forward();
+		suorista();
 	}
 	
 	/**
-	 * Pysayttaa molemmat moottorit.
+	 * Suoristaa kaannosrenkaat ja pysayttaa molemmat moottorit.
 	 */
 	public void pysayta() {
 		this.paaMoottori.stop();
+		this.kaannosMoottori.rotateTo(0);
 		this.kaannosMoottori.stop();
 	}
   
 	/**
 	 * Metodi kaantaa robotin eturenkaat annettuun suuntaan.
-	 * Pyoria kaannetaan vain raja-arvoon 30 asti.
-	 * @param suunta Kaannossuunta. 0 = vasen, 1 = oikea.
+	 * Pyoria kaantavaa moottoria kaannetaan vain rajakulmaan asti.
+	 * Muut ohjauskomennot keskeyttävät käännöksen.
+	 * @param suunta Kaannossuunta. 1 = vasen, 0 = oikea.
+	 * @param rajakulma Aseta moottorin kaannoskulma suhteessa suoraan ajoon.
 	 */
 	public void kaanny(int suunta) {
-		int rajakulma = 45;
+		kaanny(suunta, 50);
+	}
+	
+	public void kaanny(int suunta, int rajakulma) {
 		if (suunta == 0) {
-			this.kaannosMoottori.rotateTo(rajakulma);
+			this.kaannosMoottori.rotateTo(rajakulma, true);
 		} else if (suunta == 1) {
-			this.kaannosMoottori.rotateTo(-rajakulma);
+			this.kaannosMoottori.rotateTo(-rajakulma, true);
 		}
 	}
 	
@@ -65,7 +104,7 @@ public class Pyorat {
 	 * Metodi kaantaa robotin eturenkaat suoraan ajoon.
 	 */
 	public void suorista() {
-		this.kaannosMoottori.rotateTo(0);
+		this.kaannosMoottori.rotateTo(0, true);
 
 	}
 	
@@ -78,5 +117,9 @@ public class Pyorat {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean isRunning() {
+		return this.running;
 	}
 }
