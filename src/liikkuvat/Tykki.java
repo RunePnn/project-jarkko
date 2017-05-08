@@ -22,7 +22,6 @@ public class Tykki extends Thread {
 	private boolean paalla;
 	
 	/**
-	 * Tykin konstruktori.
 	 * @param porttiAlusta MotorPort pyorivää alustaa varten
 	 * @param porttiTykki MotorPort ampuvaa tykkiä varten
 	 */
