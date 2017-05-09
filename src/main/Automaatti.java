@@ -58,7 +58,7 @@ public class Automaatti {
 			this.kantama = seekSample[1];
 			
 			LCD.drawString(this.suunta + "            ", 0, 1);
-			LCD.drawString(this.kantama + "            ", 0, 0);
+			LCD.drawString(this.tykki.haeSijainti() + "            ", 0, 0);
 			
 //			this.alustanNopeus = (int) (5 * Math.abs(this.suunta));
 //			if (this.alustanNopeus > 50) {
@@ -86,30 +86,31 @@ public class Automaatti {
 		// Automaattisen tykin kaantymisen koodi
 		if (suunta > 2) { // Jos kohde on vasemmmalla
 			this.tykki.asetaAlustanNopeus(this.alustanNopeus);
-			this.tykki.pyoritaAlustaaSulavasti(0); // kaanna Vasemmalle
+			this.tykki.pyoritaAlustaaSulavasti(1); // kaanna Vasemmalle
 			Button.LEDPattern(3);
 		} else if (suunta < -2) { // jos kohde on oikealla
 			this.tykki.asetaAlustanNopeus(this.alustanNopeus);
-			this.tykki.pyoritaAlustaaSulavasti(1); // kaanna Oikealle
+			this.tykki.pyoritaAlustaaSulavasti(0); // kaanna Oikealle
 			Button.LEDPattern(3);
 		} else if (suunta > 0) { // jos kohda on hieman vasemmalla
 			this.tykki.asetaAlustanNopeus(2);
-			this.tykki.pyoritaAlustaaSulavasti(0); // kaanna hieman vasemmalle
+			this.tykki.pyoritaAlustaaSulavasti(1); // kaanna hieman vasemmalle
 			Button.LEDPattern(3);
 		} else if (suunta < 0) { // jos kohde on hieman oikealla
 			this.tykki.asetaAlustanNopeus(2);
-			this.tykki.pyoritaAlustaaSulavasti(1); // kaanna hieman Oikealle
+			this.tykki.pyoritaAlustaaSulavasti(0); // kaanna hieman Oikealle
 			Button.LEDPattern(3);
 		} else if (suunta == 0 && kantama == Float.POSITIVE_INFINITY) { // jos kohdetta ei loydy...
 			Button.LEDPattern(0);
 			this.tykki.asetaAlustanNopeus(50);
 			if (this.tykki.haeSijainti() > 60) { // ...niin kaanna tykkia etsien uutta kohdetta
-				this.etsintaSuunta = 1;
-			} else if (this.tykki.haeSijainti() < -60) {
 				this.etsintaSuunta = 0;
+			} else if (this.tykki.haeSijainti() < -60) {
+				this.etsintaSuunta = 1;
 			}
 			this.tykki.pyoritaAlustaaSulavasti(this.etsintaSuunta);
-			this.pyorat.eteen(300);
+			this.pyorat.eteen(200);
+			this.pyorat.suorista();
 		} else {
 			Button.LEDPattern(1);
 			this.tykki.lopetaAlustanPyoriminen();
@@ -129,18 +130,22 @@ public class Automaatti {
 	
 	private void autoPyorat(float suunta, float kantama) {
 		// Automattisen pyorien kaantamisen ja ajamisen koodi
-		if (kantama < 40) { // Jos riittavan lahella, niin pysahdy
+		if (kantama < 40 && this.pyorat.liikkuu()) { // Jos riittavan lahella, niin pysahdy
 			this.pyorat.pysayta();
-		} else if (kantama > 60) {  // jos riittavan kaukana, niin ala liikkumaan
+		} else if (kantama > 50) {  // jos riittavan kaukana, niin ala liikkumaan
 			this.pyorat.eteen(600);
-		} else if (!(suunta == 0 && kantama == Float.POSITIVE_INFINITY)) { // jos kohde on loytynyt
-			int temp = (int) (this.tykki.haeSijainti() + (suunta * 2));
+		} 
+		
+		if (!(suunta == 0 && kantama == Float.POSITIVE_INFINITY)) { // jos kohde on loytynyt
+			int temp = (int) (this.tykki.haeSijainti());
 			if (temp > 50) {
 				temp = 50;
 			}
+			if (temp < -50) {
+				temp = -50;
+			}
 			this.pyorat.kaanny(0, temp); // Kaanny kohteen suuntaan
 		} else { // Jos ei kohdetta loydy, niin aja suoraan
-			this.pyorat.eteen(600);
 			this.pyorat.suorista();
 		}
 	}
