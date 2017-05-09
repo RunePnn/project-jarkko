@@ -93,7 +93,7 @@ public class Tykki {
 	 * @return float sijainti
 	 */
 	public float haeSijainti() {
-		return this.tykki.getPosition();
+		return this.alusta.getPosition();
 	}
 	
 	/**
