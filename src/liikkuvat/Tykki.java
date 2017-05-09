@@ -33,8 +33,6 @@ public class Tykki {
 		this.tykki.setSpeed(800);
 		
 		this.rotaatio = 0;
-		
-		this.paalla = true;
 	}
 	
 	 /**
