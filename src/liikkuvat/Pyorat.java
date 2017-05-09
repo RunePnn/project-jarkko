@@ -130,7 +130,7 @@ public class Pyorat extends Thread {
 	 * @return True, jos robotin ajomoottorit liikkuvat.
 	 */
 	public boolean liikkuu() {
-		if (this.kaannosMoottori.isMoving() || this.paaMoottori.isMoving()) {
+		if (this.kaannosMoottori.isMoving() && this.paaMoottori.isMoving()) {
 			return true;
 		}
 		return false;
