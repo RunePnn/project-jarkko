@@ -137,7 +137,7 @@ public class Automaatti {
 		} 
 		
 		if (!(suunta == 0 && kantama == Float.POSITIVE_INFINITY)) { // jos kohde on loytynyt
-			int temp = (int) (this.tykki.haeSijainti());
+			int temp = (int) (this.tykki.haeSijainti() + (suunta * 2));
 			if (temp > 50) {
 				temp = 50;
 			}
